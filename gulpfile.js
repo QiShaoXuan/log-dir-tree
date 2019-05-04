@@ -4,16 +4,15 @@ const babel = require('rollup-plugin-babel');
 
 gulp.task('default', async function () {
   const bundle = await rollup.rollup({
-      input: './src/index.js',
-      plugins: [
-        babel()
-      ]
-    })
-  ;
+    input: './src/index.js',
+    plugins: [
+      babel()
+    ]
+  })
 
   await bundle.write({
     file: './dist/index.js',
-    format: 'umd',
+    format: 'cjs',
     name: 'library',
     sourcemap: true
   });
