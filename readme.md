@@ -8,7 +8,7 @@ Log the directory constructor tree like use `tree dir` in linux
 npm install log-dir-tree
 ```
 
-### log the directory tree
+### Log the directory tree
 
 ```js
 const logDirTree = require('./dist/index')
@@ -16,7 +16,7 @@ const logDirTree = require('./dist/index')
 logDirTree.log('./')
 ```
 
-###  you can also use `parse` method to get the files stat 
+###  You can also use `parse` method to get the files stat 
  
 ```js
 const logDirTree = require('./dist/index')
@@ -26,7 +26,7 @@ logDirTree.parse('./')
 
 ## Example
 
-run command code, you will get this like above in terminal
+Run command code, you will get as follows in terminal
 ```
 ./
 ├── .babelrc
