@@ -11,7 +11,7 @@ npm install log-dir-tree
 ### Log the directory tree
 
 ```js
-const logDirTree = require('./dist/index')
+const logDirTree = require('log-dir-tree')
 
 logDirTree.log('./')
 ```
@@ -19,7 +19,7 @@ logDirTree.log('./')
 ###  You can also use `parse` method to get the files stat 
  
 ```js
-const logDirTree = require('./dist/index')
+const logDirTree = require('log-dir-tree')
 
 logDirTree.parse('./')
 ```
