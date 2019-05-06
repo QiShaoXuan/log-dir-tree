@@ -1,85 +1,27 @@
-# console-log-tree
+# log-dir-tree
 
-Log the tree of an array or object
+Log the directory constructor tree like use `tree dir` in linux
 
-## Example
-
-#### Input
-
-```js
-[
-  {
-    "name": "photos",
-    "children": [
-      {
-        "name": "summer",
-        "children": [
-          {
-            "name": "june",
-            "children": [
-              {
-                "name": "windsurf.jpg",
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "winter",
-        "children": [
-          {
-            "name": "january",
-            "children": [
-              {
-                "name": "ski.png",
-              },
-              {
-                "name": "snowboard.jpg",
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name":'doc'
-  }
-]
-```
-
-#### Output
-
-```html
-├── photos
-│   ├── summer
-│   │   └── june
-│   │       └── windsurf.jpg
-│   └── winter
-│       └── january
-│           ├── ski.png
-│           └── snowboard.jpg
-└── doc
-```
-
-## Use
+## Useage
 
 ```bash
-npm install console-log-tree
+npm install log-dir-tree
 ```
 
+### log the dir tree
+
 ```js
-const logTree = require('console-log-tree')
+const logDirTree = require('./dist/index')
 
-const tree = {...}
+logDirTree.log('./')
+```
 
-const treeStr = logTree.parse(tree)
+###  you can also use `parse` method to get the files stat 
+ 
+```js
+const logDirTree = require('./dist/index')
 
-console.log(treeStr)
-
-// OR
-
-logTree.log(tree)
+logDirTree.parse('./')
 ```
 
 

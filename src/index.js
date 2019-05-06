@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require("path")
 const logTree = require("console-log-tree")
 
 class logDirTree {
@@ -6,21 +7,48 @@ class logDirTree {
     this.setting = {}
   }
 
-  parse(path) {
-    const realPath = this.getRealPath(path)
+  parse(filepath, getStat = true) {
+    let realPath
+    try {
+      realPath = fs.realpathSync(filepath)
+    } catch (e) {
+      return console.error(e)
+    }
 
-
-
-    fs.readdirSync(path)
-
+    return {
+      name: filepath,
+      children: this.getDirTree(filepath, getStat)
+    }
   }
 
-  getRealPath(path) {
-    try {
-      return fs.realpathSync(path)
-    }catch (e) {
-      return e
-    }
+  log(filepath) {
+    logTree.log(this.parse(filepath, false))
+  }
+
+
+  getDirTree(filepath, getStat = true) {
+    const children = fs.readdirSync(filepath)
+    let arr = []
+    children.forEach((filename) => {
+      const pathNow = path.join(filepath, filename)
+      const stat = fs.statSync(pathNow)
+
+      let obj = {}
+
+      if (stat.isDirectory()) {
+        obj.name = filename
+        obj.children = this.getDirTree(pathNow)
+      }
+
+      if (stat.isFile()) {
+        obj.name = filename
+      }
+
+
+      arr.push(getStat ? Object.assign(stat, obj) : obj)
+    })
+
+    return arr
   }
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "log-dir-tree",
   "version": "1.0.0",
-  "description": "Log the tree of array or object",
+  "description": "Log the directory constructor tree like use `tree dir` in linux",
   "main": "dist/index.js",
   "scripts": {
     "build": "gulp build",

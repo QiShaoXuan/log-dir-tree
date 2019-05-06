@@ -24,6 +24,8 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 var fs = require('fs');
 
+var path = require("path");
+
 var logTree = require("console-log-tree");
 
 var logDirTree =
@@ -37,18 +39,51 @@ function () {
 
   _createClass(logDirTree, [{
     key: "parse",
-    value: function parse(path) {
-      var realPath = this.getRealPath(path);
-      fs.readdirSync(path);
+    value: function parse(filepath) {
+      var getStat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      var realPath;
+
+      try {
+        realPath = fs.realpathSync(filepath);
+      } catch (e) {
+        return console.error(e);
+      }
+
+      return {
+        name: filepath,
+        children: this.getDirTree(filepath, getStat)
+      };
     }
   }, {
-    key: "getRealPath",
-    value: function getRealPath(path) {
-      try {
-        return fs.realpathSync(path);
-      } catch (e) {
-        return e;
-      }
+    key: "log",
+    value: function log(filepath) {
+      logTree.log(this.parse(filepath, false));
+    }
+  }, {
+    key: "getDirTree",
+    value: function getDirTree(filepath) {
+      var _this = this;
+
+      var getStat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      var children = fs.readdirSync(filepath);
+      var arr = [];
+      children.forEach(function (filename) {
+        var pathNow = path.join(filepath, filename);
+        var stat = fs.statSync(pathNow);
+        var obj = {};
+
+        if (stat.isDirectory()) {
+          obj.name = filename;
+          obj.children = _this.getDirTree(pathNow);
+        }
+
+        if (stat.isFile()) {
+          obj.name = filename;
+        }
+
+        arr.push(getStat ? Object.assign(stat, obj) : obj);
+      });
+      return arr;
     }
   }]);
 

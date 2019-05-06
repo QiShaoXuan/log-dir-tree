@@ -1,4 +1,6 @@
 const logDirTree = require('./dist/index')
 
-console.log(logDirTree.check('a')
-)
+
+// console.log(logDirTree.parse('./'))
+
+logDirTree.log('./')
